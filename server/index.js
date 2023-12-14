@@ -23,7 +23,7 @@ db.once("open", () => {
     console.log("Connected to MongoDB");
 });
 
-// Schema and Model
+// Schema 
 const formDataSchema = new mongoose.Schema({
     firstName: String,
     category: String,
