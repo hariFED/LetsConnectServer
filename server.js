@@ -6,13 +6,12 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 
-// Middleware
+
 app.use(cors());
 app.use(bodyParser.json());
 
-// MongoDB connection
 
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -23,7 +22,7 @@ db.once("open", () => {
     console.log("Connected to MongoDB");
 });
 
-// Schema 
+
 const formDataSchema = new mongoose.Schema({
     firstName: String,
     category: String,
@@ -33,7 +32,7 @@ const formDataSchema = new mongoose.Schema({
 
 const FormData = mongoose.model("FormData", formDataSchema);
 
-// Routes
+
 app.post("/submitForm", async (req, res) => {
     try {
         const formData = new FormData(req.body);
@@ -47,7 +46,7 @@ app.post("/submitForm", async (req, res) => {
 
 app.get('/getFormData', async (req, res) => {
     try {
-        // Fetch all form data from MongoDB
+
         const formDataList = await FormData.find();
         res.json(formDataList);
     } catch (error) {
@@ -56,7 +55,7 @@ app.get('/getFormData', async (req, res) => {
     }
 });
 
-// Start server
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
